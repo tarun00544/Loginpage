@@ -1,0 +1,320 @@
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to my page </title>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: rgb(7, 20, 20);
+            background-color: rgb(115, 190, 248);
+        }
+
+        .Login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 400px;
+
+        }
+
+        .Login-wapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 700px;
+            margin: 20%;
+
+        }
+
+        .Welcome-message {
+            background: linear-gradient(135deg, #4f83cc 0%, #7b68ee 100%);
+            color: rgb(33, 31, 31);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            overflow: hidden;
+            height: 465px;
+            border-radius: 20px;
+            border-style: solid;
+        }
+
+        .Welcome-message h2 {
+            color: blue;
+        }
+
+        .Welcome-message h3 {
+            color: darkblue;
+        }
+
+        .Welcome-message h5 {
+            color: gray;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .Login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Login-form label {
+            margin-bottom: 5px;
+        }
+
+        .Login-form input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+        }
+
+        button {
+            display: inline;
+            color: rgb(236, 236, 241);
+            background-color: blue;
+            width: 300px;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .signup-link {
+            display: flex;
+        }
+
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: darkblue;
+            background-color: #4f83cc;
+        }
+
+        button:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .loading {
+            background-color: #6c757d !important;
+            cursor: not-allowed !important;
+        }
+    </style>
+</head>
+
+<body background="https://static.vecteezy.com/system/resources/previews/011/635/825/non_2x/abstract-square-interface-modern-background-concept-fingerprint-digital-scanning-visual-security-system-authentication-login-vector.jpg" style="background-size: cover; background-position: center;">
+    <div class="Login-wapper">
+        <div class="Welcome-message">
+            <h2>Welcome to Technical Players</h2>
+            <p>Your gateway to the world of technology.</p>
+            <h3>Connect with us on social media:</h3>
+            <a href="https://www.google.com/"> <img
+                    src="https://images.unsplash.com/photo-1678483790096-26cc771a9dc2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Google" height="150" width=""></a>
+        </div>
+
+        <div class="Login-container">
+            <div class="login-header">
+                <h1>Technical players </h1>
+                <br>
+                <h3>Login your account </h3>
+                <h5>Please enter your all details for sign in:</h5>
+            </div>
+
+            <form id="loginForm">
+                <div class="Login-form">
+                    <label for="Email"> Email Address </label>
+                    <input type="email" id="Email" name="Email" required placeholder="Enter your email-id">
+
+                    <label for="Password"> Password</label>
+                    <input type="password" name="Password" id="Password" required placeholder="Enter your Password">
+                </div>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="remember" id="remember">
+                        Remember me
+                    </label>
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginButton">
+                    Login
+                </button>
+                
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+            <br>
+            <div class="signup-link">
+                Don't have an account? <a href="Signup.html" onclick="showSignup()">Sign up here </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Valid credentials
+        const validCredentials = {
+            username: "tarunkumar894186@gmail.com",
+            password: "Tarun@1230"
+        };
+
+        // Portfolio URL
+        const portfolioURL = "https://tarun00544.github.io/Tarun-Portfolio/";
+
+        // Get form elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('Email');
+        const passwordInput = document.getElementById('Password');
+        const loginButton = document.getElementById('loginButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const rememberCheckbox = document.getElementById('remember');
+
+        // Handle form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enteredEmail = emailInput.value.trim();
+            const enteredPassword = passwordInput.value;
+            
+            // Clear previous error messages
+            errorMessage.textContent = '';
+            
+            // Show loading state
+            loginButton.textContent = 'Logging in...';
+            loginButton.classList.add('loading');
+            loginButton.disabled = true;
+            
+            // Simulate a brief loading delay for better UX
+            setTimeout(() => {
+                // Validate credentials
+                if (enteredEmail === validCredentials.username && enteredPassword === validCredentials.password) {
+                    // Success - store login state if remember me is checked
+                    if (rememberCheckbox.checked) {
+                        // Store login state (you might want to use more secure methods in production)
+                        sessionStorage.setItem('isLoggedIn', 'true');
+                        sessionStorage.setItem('userEmail', enteredEmail);
+                    }
+                    
+                    // Show success message
+                    loginButton.textContent = 'Success! Redirecting...';
+                    loginButton.style.backgroundColor = 'green';
+                    
+                    // Redirect to portfolio after a short delay
+                    setTimeout(() => {
+                        window.location.href = portfolioURL;
+                    }, 1000);
+                    
+                } else {
+                    // Failed login
+                    errorMessage.textContent = 'Invalid email or password. Please try again.';
+                    
+                    // Reset button state
+                    loginButton.textContent = 'Login';
+                    loginButton.classList.remove('loading');
+                    loginButton.disabled = false;
+                    
+                    // Clear password field for security
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Shake effect for visual feedback
+                    loginForm.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        loginForm.style.animation = '';
+                    }, 500);
+                }
+            }, 1000);
+        });
+
+        // Forgot password function
+        function showForgotPassword() {
+            alert('Please contact support at: tarunkumar894186@gmail.com');
+        }
+
+        // Sign up function
+        function showSignup() {
+            alert('Redirecting to sign up page...');
+            // You can redirect to actual signup page here
+            // window.location.href = 'Signup.html';
+        }
+
+        // Check if user is already logged in (if remember me was used)
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                const userEmail = sessionStorage.getItem('userEmail');
+                if (userEmail === validCredentials.username) {
+                    if (confirm('You are already logged in. Do you want to go to your portfolio?')) {
+                        window.location.href = portfolioURL;
+                    } else {
+                        sessionStorage.removeItem('isLoggedIn');
+                        sessionStorage.removeItem('userEmail');
+                    }
+                }
+            }
+        });
+
+        // Add shake animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add enter key support for better UX
+        emailInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                passwordInput.focus();
+            }
+        });
+
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+
+</html>
